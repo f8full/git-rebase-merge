@@ -5,7 +5,7 @@ Yes, that's a sad story.
 It wouldn't be so sad, if it was a merge instead, because in case of merge 
 we have to fix only final conflicts in just one step.
 
-## method ##
+## Method ##
 
 So here is an idea how to how make potentially hard rebase easier:
 1. Start a hidden merge
