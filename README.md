@@ -2,12 +2,12 @@
 
 Have you ever rebased a branch resolving many conflicts on multiple commits?  
 Yes, that's a sad story.  
-It wouldn't be so sad, if it was a merge instead, because in case of merge 
+It wouldn't be so sad, if it was a merge instead, because with a merge 
 we have to fix only final conflicts in just one step.
 
 ## Method ##
 
-So here is an idea how to how make potentially hard rebase easier:
+So here is an idea on how to make a potentially hard rebase easier:
 1. Start a hidden merge
 2. Resolve conflicts and save hidden merge result
 3. Perform a standard branch rebase, but with automatic conflict resolution
@@ -19,7 +19,7 @@ This script implements this approach as simple dialog and applicable on Linux / 
 
 First, we have to make this script run as a new custom git command
 
-To do this, we must add the directory where the script file "git-rebase-merge" to your PATH as an environment variable.
+To do this, we must add the directory where the script file "git-rebase-merge" is to your PATH environment variable.
 
 Next, we have to checkout the branch we want to do the rebase on.
 
