@@ -11,13 +11,16 @@ while [[ $# -gt 0 ]]; do
 		-b|--branch)
 			branch="$2"
 			shift
+			shift
 			;;
 		-m|--message)
 			commit_message="$2"
 			shift
+			shift
 			;;
 		-f|--force-push)
 			force_push=1
+			shift
 			;;
 		*)
 			echo "Unknown option: $1"

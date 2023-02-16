@@ -3,8 +3,27 @@
 force_push=0
 default_commits_to_reset=1
 commits_to_reset=${1:-$default_commits_to_reset}
-
 last_commit_message=$(git log -1 --pretty=%B)
+
+while [[ $# -gt 0 ]]; do
+	key="$1"
+
+	case $key in
+		-n|--number)
+			commits_to_reset="$2"
+			shift
+			shift
+			;;
+		-f|--force-push)
+			force_push=1
+			shift
+			;;
+		*)
+			echo "Unknown option: $1"
+			exit 1
+			;;
+	esac
+done
 
 git reset HEAD~$commits_to_reset
 git add .
