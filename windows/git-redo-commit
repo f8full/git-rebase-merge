@@ -1,0 +1,26 @@
+#!/bin/bash
+
+force_push=0
+default_commits_to_reset=1
+commits_to_reset=${1:-$default_commits_to_reset}
+
+last_commit_message=$(git log -1 --pretty=%B)
+
+git reset HEAD~$commits_to_reset
+git add .
+git commit -m "$last_commit_message"
+
+while getopts "f:" opt; do
+	case $opt in
+		f | foce-push)
+			force_push=1
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG"
+			;;
+	esac
+done
+
+if [$force_push -eq 1]; then
+	git push -f
+fi

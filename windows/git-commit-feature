@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Initialize variables with default values
+branch=""
+commit_message=""
+force_push=0
+
+# Process command line arguments
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-b|--branch)
+			branch="$2"
+			shift
+			;;
+		-m|--message)
+			commit_message="$2"
+			shift
+			;;
+		-f|--force-push)
+			force_push=1
+			;;
+		*)
+			echo "Unknown option: $1"
+			exit 1
+			;;
+	esac
+	shift
+done
+
+# Check if a branch name was provided
+if [[ -z "$branch" ]]; then
+	echo "Error: branch name is required. Use -b or --branch to specify it."
+	exit 1
+fi
+
+# Check if a commit message was provided
+if [[ -z "$commit_message" ]];; then
+	echo "Error: commit message is required. Use -m or --message to specify it."
+	exit 1
+fi
+
+# Check if the current branch is master or main
+current_branch=$(git branch --show-current)
+if [[ $current_branch != "master" ]] && [[ $current_branch != "main" ]]; then
+	echo "Error: current branch is not master or main. Aborting."
+	exit 1
+fi
+
+# Check if the current branch is up to date with origin
+git fetch origin
+local=$(git rev-parse HEAD)
+remote=$(git rev-parse @{u})
+if [[ "$local" != "$remote" ]]; then
+	echo "Error: current branch is not up to date with origin. Aborting."
+	exit 1
+fi
+
+# Create a new branch and switch to it
+git checkout -b "$branch"
+
+# Stage and commit changes
+git add .
+git commit -m "$commit_message"
+
+if [[ $force_push -eq 1 ]]; then
+	git push --force origin "$branch" || git push --set-upstream origin "$branch"
+fi
