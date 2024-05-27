@@ -27,11 +27,11 @@ Next, we have to checkout the branch we want to do the rebase on.
 git checkout feature/my-kawaii-feature-i-want-to-rebase
 ```
 
-On the script file, the default base branch that the rebase will be based on is named "origin/master".
+On the script file, the default base branch that the rebase will be based on is named "origin/main".
 This can be changed by editing line 9 of the "git-rebase-merge" bash script file.
 
 ```bash
-default_base_branch='origin/master'
+default_base_branch='origin/main'
 ```
 
 ## Usage ##
